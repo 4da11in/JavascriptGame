@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Adventure Game</title>
+    
+</head>
+
+<body>
+    <div id="d" style="background-color:red; width: 100px; height: 100px;"></div>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+    <script>
+        var d = document.getElementById("d");
+        $(document).ready(() => {
+            $('#d').fadeOut(1000);
+});
+        var favColor = prompt("What is your favorite color?");
+        switch (favColor.toLowerCase()) {
+            case "green":
+                alert("Hey, same!");
+                break;
+            case "red":
+            case "blue":
+                alert("I like that too!")
+                break;
+            default:
+                alert("Ok, I can respect that...");
+                break;
+        }
+    </script>
+</body>
+    
+</html>

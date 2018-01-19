@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript Adventure Game</title>
+    
+</head>
+
+<body>
+    <div id="d" style="background-color:red; width: 100px; height: 100px;"></div>
+    <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+    <script>
+        // --- "confirm" and "alert" examples - "prompt" is used in the actual game. ---
+        //var a = confirm("Did you eat your dinner?");
+        //if (a) {
+        //  alert("you did!");
+        //} else {
+        //  alert("you didn't?");
+        //}
+        
+        var d = document.getElementById("d");
+        $(document).ready(() => {
+            $('#d').animate({left: '250px'});
+});
+    document.write("<h1 style='color: red;'>Adventure Game</h1>");
+    
+    var playerName = prompt("What is your name?");
+    
+    function a(p, a, b) {
+        return prompt(p + "\n\t a) " + a + "\n\t b) " + b);
+    }    
+    
+    var v = a("Hi, " + playerName + ". You awake in a room with a door and a window.", "open the door", "open the window");
+    
+        var iterations = 0;
+        var firstdoor = true;
+        var firstwindow = true;
+                
+        while (true) {
+        switch(v) {
+            case "a":
+                if (new Date().getTime()%3 == 0 || firstdoor) {
+                    v = a("You opened the door. There's another room.", "open the door", "open the window");
+                    firstdoor = false;
+                }
+                else if (new Date().getTime()%3 == 1)
+                    {
+                        v = a("You opened another door. There's something surprising here... actually, nevermind. it's just another room. :p", "open the door", "open the window");
+                    }
+                else {
+                    v = a("You opened the door. What do you see? Another room.", "open the door", "open the window");
+                }
+                break;
+            case "b":
+                if (new Date().getTime()%3 == 0 || firstwindow) {
+                    v = a("You opened the window. The window doesn't lead outside, however. It leads to another room.", "open the door", "open the window");
+                    firstwindow = false;
+                }
+                else if (new Date().getTime()%3 == 1) {
+                    v = a("You opened the window. You are finally... Nope. You're in another room.", "open the door", "open the window");
+                } else {
+                    v = a("You opened the window. You climbed through and found... another room.", "open the door", "open the window");
+                }
+
+                break;
+            default:
+                v = a("Invalid input. Please press a or b.","open the door", "open the window");
+                break;
+                       }
+            iterations++;
+        }
+        prompt("finished");
+    </script>
+</body>
+    
+</html>

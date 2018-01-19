@@ -30,37 +30,57 @@
     document.write("<h1 style='color: red;'>Adventure Game</h1>");
     
     var playerName = prompt("What is your name?");
+    var map = [["The Garden", "The West", "The Mountain"], ["The Forest", "The Castle", "The Lake"], ["The Canyon", "The Woods", "The Sky (don't ask me how)"]];
+    var up = 1;
+    var ri = 1;
+    var startAdv = prompt("Hi, " + playerName + "You are currently at " + map[ri][up] + ". Do you want to go north, south, east, or west?");
     
-    function a(p, a, b) {
-        return prompt(p + "\n\t a) " + a + "\n\t b) " + b);
-    }    
-    
-    var v = a("Hi, " + playerName + ". You awake in a room with a door and a window.", "open the door", "open the window");
-        var iterations = 0;
-        while (true) {
-        switch(v) {
-            case "a":
-                if (new Date().getTime()%3 == 0) {
-                v = a("You opened the door. There's another room.", "open the door", "open the window");
-                }
-                else if (new Date().getTime()%3 == 1)
-                    {
-                        v = a("You opened another door. There's something surprising here... actually, nevermind. it's just another room. :p", "open the door", "open the window");
-                    }
-                else {
-                    v = a("You opened the door. What do you see? Another room.", "open the door", "open the window");
-                }
+    var input = startAdv;
+        
+    while (true) {
+        switch(input) {
+            case "n":                
+                up++;
                 break;
-            case "b":
-                v = a("You opened the window. The window doesn't lead outside, however. It leads to another room.", "open the door", "open the window");
+            case "s":
+                up--;
+                break;
+            case "e":
+                ri++;
+                break;
+            case "w":
+                ri--;
                 break;
             default:
-                v = a("Invalid input. Please press a or b.","open the door", "open the window");
+                prompt("Please type n, e, s, or w.");
                 break;
-                       }
-            iterations++;
-        }
+            }
+            
+            if (ri >= map.length) {
+                ri = map.length - 1;
+                var input = prompt("You cannot go farther east. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                
+            }
         
+            else if (up >= map[0].length) {
+                up = map[0].length - 1;
+                var input = prompt("You cannot go farther north. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                
+            }
+            else if (ri < 0) {
+                ri = 0;
+                var input = prompt("You cannot go farther west. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                
+            }
+            else if (up < 0) {
+                var input = prompt("You cannot go farther south. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                up = 0;
+            } else {
+                var input = prompt("You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+            }
+            
+            
+        }
     </script>
 </body>
     

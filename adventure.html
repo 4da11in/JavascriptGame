@@ -22,6 +22,20 @@
         //} else {
         //  alert("you didn't?");
         //}
+        //
+        //
+        // --- function example ---
+        // function toaster(slot) {
+        //  alert(slot + " pieces of toast are done");
+        //}
+        //
+        // --- recursive example ---
+        //  function recurse() {
+        //  alert("Curse you Perry the platypus!");
+        //  recurse();
+        //}
+        //
+        //
         
         var d = document.getElementById("d");
         $(document).ready(() => {
@@ -30,10 +44,14 @@
     document.write("<h1 style='color: red;'>Adventure Game</h1>");
     
     var playerName = prompt("What is your name?");
-    var map = [["The Garden", "The West", "The Mountain"], ["The Forest", "The Castle", "The Lake"], ["The Canyon", "The Woods", "The Sky (don't ask me how)"]];
+    var MainMap = [["The Garden", "The West", "The Mountain"], ["The Forest", "The Castle", "The Lake"], ["The Canyon", "The Woods", "The Sky (don't ask me how you got up here)"]];
+    var map = MainMap;
+    var castleMap = [["Throne Room","Hallway", "Dungeon (I know, it's a weird place to have it)"],["Dining Hall", "Hallway 2", "Kitchen"],["Ballroom", "Hallway 3", "Mysterious Cellar"]];
+    var defaultOptions = ["North", "South", "East","West"];
+    var options = defaultOptions;
     var up = 1;
     var ri = 1;
-    var startAdv = prompt("Hi, " + playerName + "You are currently at " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+    var startAdv = prompt("Hi, " + playerName + ". You are currently at " + map[ri][up] + ". Do you want to go north, south, east, west, or enter the castle (n, s, e, w, c)?");
     
     var input = startAdv;
         
@@ -51,6 +69,11 @@
             case "w":
                 ri--;
                 break;
+            case "c":
+                if (map[ri][up] == "The Castle") {
+                    map = castleMap;
+                }
+                break;
             default:
                 prompt("Please type n, e, s, or w.");
                 break;
@@ -58,23 +81,27 @@
             
             if (ri >= map.length) {
                 ri = map.length - 1;
-                var input = prompt("You cannot go farther east. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                var input = prompt("You cannot go farther east. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
                 
             }
         
             else if (up >= map[0].length) {
                 up = map[0].length - 1;
-                var input = prompt("You cannot go farther north. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                var input = prompt("You cannot go farther north. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
                 
             }
             else if (ri < 0) {
                 ri = 0;
-                var input = prompt("You cannot go farther west. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                var input = prompt("You cannot go farther west. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
                 
             }
             else if (up < 0) {
-                var input = prompt("You cannot go farther south. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
                 up = 0;
+                var input = prompt("You cannot go farther south. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
+                
+            } else if (map[ri][up] == "The Castle") {
+                                var input = prompt("You are at: " + map[ri][up] + ". Do you want to go north, south, east, west, or enter the castle (n, s, e, w, c)?");
+
             } else {
                 var input = prompt("You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
             }

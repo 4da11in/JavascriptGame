@@ -55,8 +55,14 @@
     var map = MainMap;
     var castleMap = [["Throne Room","Hallway", "Dungeon (I know, it's a weird place to have it)"],["Dining Hall", "Hallway 2", "Kitchen"],["Ballroom", "Hallway 3", "Mysterious Cellar"]];
     var up = 1;
-    var ri = 1;
-    var startAdv = prompt("Hi, " + playerName + ". You are currently at " + map[ri][up] + ". Do you want to go north, south, east, west (n, s, e, w)?");
+    var ri = 2;
+    var inventory = {
+        sword: 0,
+        armor: 0,
+        shield: 0
+    }
+    
+    var startAdv = prompt("Hi, " + playerName + ". You are currently at " + map[ri][up] + ". Input d at any time to display a map of your location. Do you want to go north, south, east, or west (n, s, e, w)?");
     
     var input = startAdv;
         
@@ -84,10 +90,22 @@
                 if (map == castleMap) {
                     map = MainMap;
                     alert("left the castle.");
-                    ri = 3;
-                    up = 3;
+                    ri = 2;
+                    up = 2;
                 }
+            case "d":
+                display();
                     break;
+            case "i":
+                var out = "You are at: " + map[ri][up] + ". ";
+                if (map[ri][up] == "Mysterious Cellar") {
+                    var input = confirm("You see a glowing sword. Pick it up?");
+                    if (input) {
+                        
+                    }
+                }
+                var input = prompt(out);
+                break;
             default:
                 prompt("Please type n, e, s, or w.");
                 break;
@@ -95,32 +113,48 @@
             
             if (ri >= map.length) {
                 ri = map.length - 1;
-                var input = prompt("You cannot go farther east. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
+                var input = prompt("You cannot go farther east. " + "You are at: " + map[ri][up] + ".");
                 
             }
         
             else if (up >= map[0].length) {
                 up = map[0].length - 1;
-                var input = prompt("You cannot go farther north. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
+                var input = prompt("You cannot go farther north. " + "You are at: " + map[ri][up] + ".");
                 
             }
             else if (ri < 0) {
                 ri = 0;
-                var input = prompt("You cannot go farther west. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
+                var input = prompt("You cannot go farther west. " + "You are at: " + map[ri][up] + ".");
                 
             }
             else if (up < 0) {
                 up = 0;
-                var input = prompt("You cannot go farther south. " + "You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west (n, s, e, w)?");
+                var input = prompt("You cannot go farther south. " + "You are at: " + map[ri][up] + ".");
                 
             } else if (map[ri][up] == "The Castle") {
-                                var input = prompt("You are at: " + map[ri][up] + ". Do you want to go north, south, east, west, or enter the castle (n, s, e, w, c)?");
+                    var input = prompt("You are at: " + map[ri][up] + ". Press c to enter the castle.");
 
+            } else if (map[ri][up] == "Mysterious Cellar") {
+                    var input = prompt("You are at: " + map[ri][up] + ". Press i to inspect your surroundings.");
             } else {
-                var input = prompt("You are at: " + map[ri][up] + ". Do you want to go north, south, east, or west?");
+                var input = prompt("You are at: " + map[ri][up] + ".");
             }
             
             
+        }
+        function display() {
+            var output = "";
+            for (var i = map.length - 1; i >= 0; i--) {
+                for (var j = 0; j < map[i].length; j++) {
+                    if (j == ri && i == up) {
+                        output += "X";
+                    } else {
+                        output += "[]";
+                    }
+                }
+                output += '\n';
+            }
+            alert(output);
         }
     </script>
 </body>

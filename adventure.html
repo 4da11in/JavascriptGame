@@ -101,8 +101,11 @@
                 if (map[ri][up] == "Mysterious Cellar") {
                     var input = confirm("You see a glowing sword. Pick it up?");
                     if (input) {
-                        
+                        inventory["sword"] = 1;
+                        alert("Sword picked up.");
                     }
+                    
+                    
                 }
                 var input = prompt(out);
                 break;

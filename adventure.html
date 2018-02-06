@@ -58,15 +58,16 @@
     var ri = 2;
     var inventory = {
         sword: 0,
-        armor: 0,
-        shield: 0
+       health: 10
     }
     
-    var startAdv = prompt("Hi, " + playerName + ". You are currently at " + map[ri][up] + ". Input d at any time to display a map of your location. Do you want to go north, south, east, or west (n, s, e, w)?");
+    var startAdv = prompt("Hi, " + playerName + ". You are currently at " + map[ri][up] + ". Input d at any time to display a map of your location, h to see your health. Do you want to go north, south, east, or west (n, s, e, w)?");
     
     var input = startAdv;
+    var gameNotOver = false;
+    while (inventory.health > 0) {
+        var lastPlace = [ri, up];
         
-    while (true) {
         switch(input) {
             case "n":                
                 up++;
@@ -98,7 +99,7 @@
                     break;
             case "i":
                 var out = "You are at: " + map[ri][up] + ". ";
-                if (map[ri][up] == "Mysterious Cellar") {
+                if (map[ri][up] == "Mysterious Cellar" && inventory.sword < 1) {
                     var input = confirm("You see a glowing sword. Pick it up?");
                     if (input) {
                         inventory["sword"] = 1;
@@ -138,9 +139,57 @@
                     var input = prompt("You are at: " + map[ri][up] + ". Press c to enter the castle.");
 
             } else if (map[ri][up] == "Mysterious Cellar") {
+                    if (inventory.sword < 1) {
                     var input = prompt("You are at: " + map[ri][up] + ". Press i to inspect your surroundings.");
+                    } else {
+                        var input = prompt("You are at: " + map[ri][up]);
+                    }
             } else {
                 var input = prompt("You are at: " + map[ri][up] + ".");
+            }
+            if (ri != lastPlace[0] || up != lastPlace[1]) {
+                if (inventory.sword > 0 && map == castleMap && Math.random() > 0.8) {
+            input = prompt("You see a huge troll. He says, 'Give me that sword.' Press g to give the sword to him, a to attack him.");
+            switch(input) {
+                case "g":
+                    if (Math.random() > 0.5) {
+                    alert("The troll is a nice troll. He refills your health to " + inventory.health + ", and returns your sword.");
+                   inventory.health = 10;
+                } else {
+                    alert("The troll is not nice. He kills you and ends the game.");
+                   inventory.health = 0;
+                }
+                    break;
+                case "a":
+                    if (Math.random() > 0.7) {
+                        alert("You successfully killed the troll. You live to fight another day.");
+                    } else {
+                        alert("You try to stab him, but miss. Your health goes down by 1. Luckily, he loses interest and leaves.");
+                        inventory.health--;
+                    }
+                        }
+                
+        }
+        if (map == MainMap && inventory.sword > 0 && Math.random() > 0.7) {
+            input = prompt("You are being attacked by a dragon. Press a to attack, b to block, r to run.");
+            switch(input) {
+                case "a":
+                    if (Math.random() > 0.5) {
+                    alert("You successfully slay the dragon. Health refilled.");
+                   inventory.health = 10;
+                } else {
+                    alert("The dragon dodges and retaliates. Your health goes down by 2.");
+                }
+                    break;
+                case "b":
+                    if (Math.random() > 0.1) {
+                        alert("You successfully block. The dragon loses interest and leaves you alone.");
+                    } else {
+                        alert("The dragon found a way around your shield. Your health goes down by 2.");
+                        inventory.health-=2;
+                    }
+                }
+        }
             }
             
             

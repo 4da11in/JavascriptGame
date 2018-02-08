@@ -51,7 +51,7 @@
     document.write("<h1 style='color: red;'>Adventure Game</h1>");
     
     var playerName = prompt("What is your name?");
-    var MainMap = [["The Forest", "The Forest", "The Forest","The Plains","The Plains"], ["The Forest", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Plains"], ["The Forest", "The Castle Grounds", "The Castle", "The Castle Grounds", "The Plains"], ["The Clearing", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Mountains"], ["The Mountains", "The Mountains", "The Mountains", "The Mountains", "The Mountains"]];
+    var MainMap = [["The Forest", "The Forest", "The Forest","The Plains","The Plains"], ["The Forest", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Plains"], ["The Forest", "The Castle Grounds", "The Castle", "The Castle Grounds", "The Plains"], ["The Clearing", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Mountains"], ["The Mountains", "The Mountains", "The Mountains", "The Mountains", "The End: do you have a sword yet?"]];
     var map = MainMap;
     var castleMap = [["Throne Room","Hallway", "Dungeon (I know, it's a weird place to have it)"],["Dining Hall", "Hallway 2", "Kitchen"],["Ballroom", "Hallway 3", "Mysterious Cellar"]];
     var up = 1;
@@ -178,7 +178,7 @@
                     alert("You successfully slay the dragon. Health refilled.");
                    inventory.health = 10;
                 } else {
-                    alert("The dragon dodges and retaliates. Your health goes down by 2.");
+                    alert("The dragon dodges and retaliates. Your health goes down by 2. Forutnately, it is distraced by a running deer and leaves.");
                 }
                     break;
                 case "b":
@@ -190,10 +190,14 @@
                     }
                 }
         }
-            }
-            
             
         }
+        if (map[ri][up] == "The End" && inventory.sword > 0) {
+            alert("You have won the game!");
+            gameNotOver = false;
+        }
+        //end while    
+    }
         function display() {
             var output = "";
             for (var i = map.length - 1; i >= 0; i--) {

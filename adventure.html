@@ -51,7 +51,7 @@
     document.write("<h1 style='color: red;'>Adventure Game</h1>");
     
     var playerName = prompt("What is your name?");
-    var MainMap = [["The Forest", "The Forest", "The Forest","The Plains","The Plains"], ["The Forest", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Plains"], ["The Forest", "The Castle Grounds", "The Castle", "The Castle Grounds", "The Plains"], ["The Clearing", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Mountains"], ["The Mountains", "The Mountains", "The Mountains", "The Mountains", "The End: do you have a sword yet?"]];
+    var MainMap = [["The Forest", "The Forest", "The Forest","The Plains","The Plains"], ["The Forest", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Plains"], ["The Forest", "The Castle Grounds", "The Castle", "The Castle Grounds", "The Plains"], ["The Clearing", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Mountains"], ["The Mountains", "The Mountains", "The Mountains", "The Mountains", "The End: do you have a sword yet? Press enter with no input if you do"]];
     var map = MainMap;
     var castleMap = [["Throne Room","Hallway", "Dungeon (I know, it's a weird place to have it)"],["Dining Hall", "Hallway 2", "Kitchen"],["Ballroom", "Hallway 3", "Mysterious Cellar"]];
     var up = 1;
@@ -64,57 +64,64 @@
     var startAdv = prompt("Hi, " + playerName + ". You are currently at " + map[ri][up] + ". Input d at any time to display a map of your location, h to see your health. Do you want to go north, south, east, or west (n, s, e, w)?");
     
     var input = startAdv;
-    var gameNotOver = false;
-    while (inventory.health > 0) {
-        var lastPlace = [ri, up];
-        
-        switch(input) {
-            case "n":                
-                up++;
-                break;
-            case "s":
-                up--;
-                break;
-            case "e":
-                ri++;
-                break;
-            case "w":
-                ri--;
-                break;
-            case "c":
-                if (map[ri][up] == "The Castle") {
-                    map = castleMap;
-                    alert("Castle entered. Input 'l' (lowercase 'L') to leave.");
-                }
-                break;
-            case "l":
-                if (map == castleMap) {
-                    map = MainMap;
-                    alert("left the castle.");
-                    ri = 2;
-                    up = 2;
-                }
-            case "d":
-                display();
-                    break;
-            case "i":
-                var out = "You are at: " + map[ri][up] + ". ";
-                if (map[ri][up] == "Mysterious Cellar" && inventory.sword < 1) {
-                    var input = confirm("You see a glowing sword. Pick it up?");
-                    if (input) {
-                        inventory["sword"] = 1;
-                        alert("Sword picked up.");
+    var gameNotOver = true;
+    var beingAttacked = false;
+    while (inventory.health > 0 && !(inventory.sword > 0 && map[ri][up] == "The End: do you have a sword yet? Press enter with no input if you do")) {
+        var lastPlace = [ri, up];    
+        if (!beingAttacked) {
+                    switch(input) {
+
+                        case "n":                
+                            up++;
+                            break;
+                        case "s":
+                            up--;
+                            break;
+                        case "e":
+                            ri++;
+                            break;
+                        case "w":
+                            ri--;
+                            break;
+                        case "c":
+                            if (map[ri][up] == "The Castle") {
+                                map = castleMap;
+                                ri = 0;
+                                up = 0;
+                                alert("Castle entered. Input 'l' (lowercase 'L') to leave.");
+                            }
+                            break;
+                        case "l":
+                            if (map == castleMap) {
+                                map = MainMap;
+                                alert("left the castle.");
+                                ri = 2;
+                                up = 2;
+                            }
+                        case "d":
+                            display();
+                                break;
+                        case "h":
+                                alert("Your health is: " + inventory.health);
+                            break;
+                        case "i":
+                            var out = "You are at: " + map[ri][up] + ". ";
+                            if (map[ri][up] == "Mysterious Cellar" && inventory.sword < 1) {
+                                var input = confirm("You see a glowing sword. Pick it up?");
+                                if (input) {
+                                    inventory["sword"] = 1;
+                                    alert("Sword picked up.");
+                                }                   
+
+                            }
+                            var input = prompt(out);
+                            break;
+                        default:
+                            prompt("Please type n, e, s, or w.");
+                            break;
+
+                        }
                     }
-                    
-                    
-                }
-                var input = prompt(out);
-                break;
-            default:
-                prompt("Please type n, e, s, or w.");
-                break;
-            }
-            
             if (ri >= map.length) {
                 ri = map.length - 1;
                 var input = prompt("You cannot go farther east. " + "You are at: " + map[ri][up] + ".");
@@ -191,13 +198,14 @@
                 }
         }
             
-        }
-        if (map[ri][up] == "The End" && inventory.sword > 0) {
-            alert("You have won the game!");
-            gameNotOver = false;
-        }
-        //end while    
+        }    
     }
+        
+        if (inventory.health > 0) {
+            alert("Congratulations! You have won the game!");
+        } else {
+            alert("Lost the game. Refresh the page to try again.");
+        }
         function display() {
             var output = "";
             for (var i = map.length - 1; i >= 0; i--) {

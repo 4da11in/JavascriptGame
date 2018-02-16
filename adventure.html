@@ -8,12 +8,8 @@
 </head>
 
 <body>
-    <div id="d" style="background-color:red; width: 100px; height: 100px;"></div>
-    <script
-  src="https://code.jquery.com/jquery-3.2.1.min.js"
-  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-  crossorigin="anonymous"></script>
-
+    <p>Refresh the page to play again</p>
+    
     <script>
         // --- "confirm" and "alert" examples - "prompt" is used in the actual game. ---
         //var a = confirm("Did you eat your dinner?");
@@ -44,11 +40,7 @@
         // else {return;}
         //}
         
-        var d = document.getElementById("d");
-        $(document).ready(() => {
-            $('#d').animate({left: '250px'});
-});
-    document.write("<h1 style='color: red;'>Adventure Game</h1>");
+        
     
     var playerName = prompt("What is your name?");
     var MainMap = [["The Forest", "The Forest", "The Forest","The Plains","The Plains"], ["The Forest", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Plains"], ["The Forest", "The Castle Grounds", "The Castle", "The Castle Grounds", "The Plains"], ["The Clearing", "The Castle Grounds", "The Castle Grounds", "The Castle Grounds", "The Mountains"], ["The Mountains", "The Mountains", "The Mountains", "The Mountains", "The End: do you have a sword yet? Press enter with no input if you do"]];
@@ -88,7 +80,7 @@
                                 map = castleMap;
                                 ri = 0;
                                 up = 0;
-                                alert("Castle entered. Input 'l' (lowercase 'L') to leave.");
+                                alert("Castle entered. Input 'l' (lowercase 'L') at any time to leave.");
                             }
                             break;
                         case "l":
